@@ -1,0 +1,49 @@
+<UserControl
+    x:Class="JsonPad.MainView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:JsonPad.ViewModels.Pages"
+    xmlns:controls="clr-namespace:JsonPad.Controls"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:DataType="vm:MainViewModel"
+    mc:Ignorable="d">
+    <Design.DataContext>
+        <vm:MainViewModel />
+    </Design.DataContext>
+
+    <Grid ColumnDefinitions="*,20,*" RowDefinitions="*,20">
+        
+        <controls:NumberedTextBox
+            Grid.Column="0" 
+            Grid.Row="0"
+            Text="{Binding JsonText, Mode=TwoWay}"
+            />
+
+            
+        
+        <TreeView
+            Grid.Row="0"
+            Grid.Column="2"
+            ItemsSource="{Binding NodeTree}"
+            >
+            <TreeView.ItemTemplate>
+                <TreeDataTemplate ItemsSource="{Binding Children}">
+                    <TextBlock
+                        Text="{Binding Name}"/>
+                </TreeDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
+        
+        <TextBlock 
+            Grid.ColumnSpan="3"
+            Grid.Column="0"
+            HorizontalAlignment="Center"
+            Grid.Row="1"
+            Text="{Binding WarningText}" 
+            Foreground="Brown"/>
+    </Grid>
+
+</UserControl>
