@@ -1,37 +1,54 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using Avalonia;
 using CommunityToolkit.Mvvm.ComponentModel;
-using JsonPad.Models.Json;
-using JsonPad.Services;
+using CommunityToolkit.Mvvm.Input;
+using JsonPad.Models.Page;
+using JsonPad.Views.Pages;
 
 namespace JsonPad.ViewModels.Pages;
 
 public partial class MainViewModel : ViewModelBase
 {
-    [ObservableProperty]
-    private ObservableCollection<Node> _nodeTree;
+    [ObservableProperty] private PageView _currentPage = new();
 
-    [ObservableProperty] 
-    private string _jsonText = "";
+    [ObservableProperty] private ObservableCollection<PageView> _pages = [];
     
     [ObservableProperty]
-    private string _warningText = "";
+    private Thickness _marginAddButton = new Thickness(0, 0, 0, 0);
+    
 
     public MainViewModel()
     {
-
+        AddPage();
+        if (Pages.Count > 0)
+        {
+            CurrentPage = Pages[0];
+        }
     }
 
-    partial void OnJsonTextChanged(string value)
+    partial void OnCurrentPageChanged(PageView value)
     {
-        try
+    }
+    
+
+    [RelayCommand]
+    private void ClosePage(PageView pageView)
+    {
+        Pages.Remove(pageView);
+        var left = Pages.Count * 136;
+        MarginAddButton = new Thickness(left, 0, 0, 0);
+    }
+
+    [RelayCommand]
+    private void AddPage()
+    {
+        Pages.Add(new PageView
         {
-            WarningText = "";
-            NodeTree = new JsonService().LoadJsonData(value);
-        }
-        catch (Exception e)
-        {
-            WarningText = e.Message;
-        }
+            Page = new JsonView(),
+            Title = $"New Page [{Pages.Count + 1}]"
+        });
+        var left = Pages.Count * 136;
+        MarginAddButton = new Thickness(left, 0, 0, 0);
     }
 }

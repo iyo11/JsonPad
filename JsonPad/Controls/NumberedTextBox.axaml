@@ -4,28 +4,33 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="JsonPad.Controls.NumberedTextBox">
-    <ScrollViewer>
+    <ScrollViewer
+        VerticalScrollBarVisibility="Auto"
+        HorizontalScrollBarVisibility="Auto">
         <Grid ColumnDefinitions="50,*">
-            <TextBox
-                x:Name="LineNumberBlock" 
-                Grid.Column="0"
-                CornerRadius="0"
-                HorizontalContentAlignment="Right"
-                VerticalAlignment="Top" 
-                HorizontalAlignment="Right" 
-                FontSize="18"
-                IsEnabled="False"
-                BorderThickness="0"
-                FontFamily="Consolas" />
-            <TextBox x:Name="TextPanel" Grid.Column="1" TextChanged="TextBox_TextChanged" 
-                     FontSize="18"
+            <Border
+                BorderBrush="#dadada"
+                BorderThickness="0 0 1 0">
+                <TextBox
+                    x:Name="LineNumberBlock"
+                    Grid.Column="0"
+                    CornerRadius="0"
+                    HorizontalContentAlignment="Right"
+                    FontSize="16"
+                    IsEnabled="False"
+                    BorderThickness="0"
+                    FontFamily="Consolas" />
+            </Border>
+            <TextBox x:Name="TextPanel" Grid.Column="1" TextChanged="TextBox_TextChanged"
+                     FontSize="16"
                      CornerRadius="0"
+                     BorderThickness="0"
                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                      Text="{Binding Text, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay}"
                      AcceptsReturn="True"
                      AcceptsTab="True"
-                     FontFamily="Consolas" 
-            />
+                     FontFamily="Consolas" />
         </Grid>
     </ScrollViewer>
 </UserControl>

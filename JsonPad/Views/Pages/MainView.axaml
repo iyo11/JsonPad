@@ -1,49 +1,103 @@
-<UserControl
-    x:Class="JsonPad.MainView"
+﻿<UserControl
+    x:Class="JsonPad.Views.Pages.MainView"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:vm="clr-namespace:JsonPad.ViewModels.Pages"
-    xmlns:controls="clr-namespace:JsonPad.Controls"
+    xmlns:viewModels="clr-namespace:JsonPad.ViewModels.Pages"
+    xmlns:page="clr-namespace:JsonPad.Models.Page"
     d:DesignHeight="450"
     d:DesignWidth="800"
-    x:DataType="vm:MainViewModel"
+    x:DataType="viewModels:MainViewModel"
+    d:DataContext="{viewModels:MainViewModel}"
     mc:Ignorable="d">
+
     <Design.DataContext>
-        <vm:MainViewModel />
+        <viewModels:MainViewModel />
     </Design.DataContext>
+    <UserControl.Resources>
+        <ControlTheme x:Key="ScrollTabControl" TargetType="TabControl">
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            Background="{TemplateBinding Background}"
+                            HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalAlignment}">
+                        <DockPanel>
+                            <ScrollViewer DockPanel.Dock="{TemplateBinding TabStripPlacement}" 
+                                          HorizontalAlignment="Stretch"
+                                          HorizontalScrollBarVisibility="Auto">
+                                <ItemsPresenter Name="PartItemsPresenter"
+                                                ItemsPanel="{TemplateBinding ItemsPanel}" />
+                            </ScrollViewer >
+                            <ContentPresenter Name="PartSelectedContentHost"
+                                              Margin="{TemplateBinding Padding}"
+                                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              Content="{TemplateBinding SelectedContent}"
+                                              ContentTemplate="{TemplateBinding SelectedContentTemplate}" />
+                        </DockPanel>
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+            <Setter Property="ItemsPanel">
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </Setter>
+        </ControlTheme>
+    </UserControl.Resources>
 
-    <Grid ColumnDefinitions="*,20,*" RowDefinitions="*,20">
-        
-        <controls:NumberedTextBox
-            Grid.Column="0" 
-            Grid.Row="0"
-            Text="{Binding JsonText, Mode=TwoWay}"
-            />
-
-            
-        
-        <TreeView
-            Grid.Row="0"
-            Grid.Column="2"
-            ItemsSource="{Binding NodeTree}"
-            >
-            <TreeView.ItemTemplate>
-                <TreeDataTemplate ItemsSource="{Binding Children}">
-                    <TextBlock
-                        Text="{Binding Name}"/>
-                </TreeDataTemplate>
-            </TreeView.ItemTemplate>
-        </TreeView>
-        
-        <TextBlock 
-            Grid.ColumnSpan="3"
-            Grid.Column="0"
-            HorizontalAlignment="Center"
-            Grid.Row="1"
-            Text="{Binding WarningText}" 
-            Foreground="Brown"/>
+    <Grid>
+        <TabControl
+            x:Name="Tabs"
+            Theme="{StaticResource ScrollTabControl}"
+            ItemsSource="{Binding Pages}"
+            SelectedItem="{Binding CurrentPage}">
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <Border Width="120">
+                        <StackPanel 
+                            Height="20"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                            <TextBlock      
+                                FontSize="13"
+                                Width="90"
+                                TextTrimming="CharacterEllipsis"
+                                VerticalAlignment="Center"
+                                Text="{Binding Title}" />
+                            <Button
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Margin=" 10 0 0 0"
+                                Command="{Binding $parent[UserControl].((viewModels:MainViewModel)DataContext).ClosePageCommand}"
+                                CommandParameter="{Binding .}">
+                                <Svg Css="path {fill:#FF6666;}" Path="/Resources/Svgs/close.svg" />
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+            <TabControl.ContentTemplate>
+                <DataTemplate DataType="page:PageView">
+                    <ContentControl Content="{Binding Page}" />
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+        </TabControl>
+        <Button 
+            Width="36"
+            Background="Transparent"
+            BorderThickness="0"
+            Height="36"
+            FontWeight="Light"
+            Command="{Binding AddPageCommand}"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            Margin="{Binding MarginAddButton}">
+            <Svg Css="path {fill:#2976be;}" Path="/Resources/Svgs/plus.svg" Width="15" Height="15"/>
+        </Button>
     </Grid>
-
 </UserControl>

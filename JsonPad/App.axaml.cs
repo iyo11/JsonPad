@@ -2,13 +2,13 @@
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
-
 using JsonPad.ViewModels.Pages;
 using JsonPad.Views;
+using JsonPad.Views.Pages;
 
 namespace JsonPad;
 
-public partial class App : Application
+public class App : Application
 {
     public override void Initialize()
     {
@@ -22,19 +22,15 @@ public partial class App : Application
         BindingPlugins.DataValidators.RemoveAt(0);
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-        {
             desktop.MainWindow = new MainWindow
             {
                 DataContext = new MainViewModel()
             };
-        }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
-        {
             singleViewPlatform.MainView = new MainView
             {
                 DataContext = new MainViewModel()
             };
-        }
 
         base.OnFrameworkInitializationCompleted();
     }

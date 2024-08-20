@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ResourceDictionary.MergedDictionaries>
+        <!-- 引用 CSS 文件 -->
+        <Styles Include="URL=avares://AvaloniaApp/Themes/Styles.css"/>
+    </ResourceDictionary.MergedDictionaries>
+
+</ResourceDictionary>

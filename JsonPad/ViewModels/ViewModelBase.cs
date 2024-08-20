@@ -2,6 +2,12 @@
 
 namespace JsonPad.ViewModels;
 
-public class ViewModelBase : ObservableObject
+public partial class ViewModelBase : ObservableObject
 {
+    [ObservableProperty] private string _modelName;
+
+    protected ViewModelBase()
+    {
+        ModelName = GetType().Name;
+    }
 }
