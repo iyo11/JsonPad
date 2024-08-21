@@ -16,6 +16,7 @@ public partial class MainViewModel : ViewModelBase
     
     [ObservableProperty]
     private Thickness _marginAddButton = new Thickness(0, 0, 0, 0);
+
     
 
     public MainViewModel()

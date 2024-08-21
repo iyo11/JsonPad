@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.Collections;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using JsonPad.Binding;
 using JsonPad.Models.Json;
 using JsonPad.Services;
 
@@ -18,6 +21,16 @@ public partial class JsonViewModel : ViewModelBase
     [ObservableProperty] private ObservableCollection<Node> _nodeTree;
 
     [ObservableProperty] private string _warningText = "";
+        
+    [ObservableProperty]
+    private int _fontSize = 15;
+
+    [ObservableProperty] 
+    private Node _selectNode = new Node();
+
+    
+    [ObservableProperty]
+    private Dictionary<string,string> _jsonData = [];
 
     public JsonViewModel()
     {
@@ -43,6 +56,34 @@ public partial class JsonViewModel : ViewModelBase
         JsonText = JsonText.Trim().Replace("\r", "").Replace("\n", "");
     }
 
+    [RelayCommand]
+    private void FontSizeUp()
+    {
+        FontSize++;
+    }
+    
+    [RelayCommand]
+    private void FontSizeDown()
+    {
+        if (FontSize > 5)
+        {
+            FontSize--;
+        }
+    }
+    
+
+    partial void OnSelectNodeChanged(Node value)
+    {
+        JsonData = new Dictionary<string, string>
+        {
+            { "Name", value.Name },
+            { "Path", value.Path },
+        };
+
+    }
+
+    
+    
     partial void OnJsonTextChanged(string oldValue, string newValue)
     {
         try

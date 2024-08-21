@@ -13,6 +13,10 @@
         <AvaloniaResource Include="Resources\Svgs\close.svg" />
         <None Remove="Resources\Svgs\plus.svg" />
         <AvaloniaResource Include="Resources\Svgs\plus.svg" />
+        <None Remove="Resources\Svgs\font_size_down.svg" />
+        <AvaloniaResource Include="Resources\Svgs\font_size_down.svg" />
+        <None Remove="Resources\Svgs\font_size_up.svg" />
+        <AvaloniaResource Include="Resources\Svgs\font_size_up.svg" />
     </ItemGroup>
 
     <ItemGroup>

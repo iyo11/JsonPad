@@ -47,6 +47,7 @@ public class JsonService
                 newNode = new Node
                 {
                     Name = "{ } " + jToken.Path.Split('.').Last(),
+                    Path = jToken.Path,
                     Children = []
                 };
 
@@ -58,6 +59,7 @@ public class JsonService
                 newNode = new Node
                 {
                     Name = "[ ] " + jToken.Path.Split('.').Last(),
+                    Path = jToken.Path,
                     Children = []
                 };
 
@@ -67,7 +69,8 @@ public class JsonService
             default:
                 newNode = new Node
                 {
-                    Name = $"\"{jToken.Path.Split('.').Last()}\" : \"{jToken}\""
+                    Name = $"\"{jToken.Path.Split('.').Last()}\" : \"{jToken}\"",
+                    Path = jToken.Path,
                 };
                 break;
         }
