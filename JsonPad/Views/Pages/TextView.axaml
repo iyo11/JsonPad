@@ -1,0 +1,85 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:JsonPad.Controls"
+             xmlns:pages="clr-namespace:JsonPad.ViewModels.Pages"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="JsonPad.Views.Pages.TextView">
+    
+    <Design.DataContext>
+        <pages:TextViewModel />
+    </Design.DataContext>
+    
+    <Border
+        BorderThickness="0 0 0 1"
+        BorderBrush="#dadada"
+        Background="#f6f6f6">
+            <Grid RowDefinitions="30 * 25">
+                <Border
+                    BorderThickness="0 1 0 1"
+                    BorderBrush="#dadada"
+                    Background="#f6f6f6">
+                    <Grid ColumnDefinitions="* *">
+                        <StackPanel
+                            Grid.Column="0"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Left">
+                        </StackPanel>
+                        <StackPanel
+                            Grid.Column="1"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Right">
+                            <Button
+                                Margin="2"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Command="{Binding FontSizeUpCommand}">
+                                <Svg Css="path {fill:#5a4a54;}" Path="/Resources/Svgs/font_size_up.svg" />
+                            </Button>
+                            <Button
+                                Margin="2"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Command="{Binding FontSizeDownCommand}">
+                                <Svg Css="path {fill:#5a4a54;}" Path="/Resources/Svgs/font_size_down.svg" />
+                            </Button>
+
+
+                        </StackPanel>
+                    </Grid>
+                </Border>
+                <Border
+                    Grid.Row="1"
+                    BorderThickness="0"
+                    BorderBrush="#dadada">
+                    <controls:NumberedTextBox
+                        FontSize="{Binding FontSize}"
+                        Text="{Binding Text, Mode=TwoWay}" />
+                </Border>
+
+                <Border
+                    Grid.Row="2"
+                    BorderThickness="0 1 0 1"
+                    BorderBrush="#dadada"
+                    Background="#f6f6f6">
+                    <Grid ColumnDefinitions="* *">
+                        <StackPanel
+                            Grid.Column="0"
+                            Orientation="Horizontal">
+                            <TextBlock
+                                Margin="10 0"
+                                FontSize="12"
+                                VerticalAlignment="Center"
+                                Text="{Binding InfoText}" />
+                        </StackPanel>
+                        <StackPanel
+                            HorizontalAlignment="Right"
+                            Grid.Column="1"
+                            Orientation="Horizontal">
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+    </Border>
+</UserControl>

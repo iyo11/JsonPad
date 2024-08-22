@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using Avalonia;
+﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using JsonPad.Models.Page;
@@ -14,14 +12,10 @@ public partial class MainViewModel : ViewModelBase
 
     [ObservableProperty] private ObservableCollection<PageView> _pages = [];
     
-    [ObservableProperty]
-    private Thickness _marginAddButton = new Thickness(0, 0, 0, 0);
-
-    
 
     public MainViewModel()
     {
-        AddPage();
+        AddJsonPage();
         if (Pages.Count > 0)
         {
             CurrentPage = Pages[0];
@@ -37,19 +31,27 @@ public partial class MainViewModel : ViewModelBase
     private void ClosePage(PageView pageView)
     {
         Pages.Remove(pageView);
-        var left = Pages.Count * 136;
-        MarginAddButton = new Thickness(left, 0, 0, 0);
     }
 
     [RelayCommand]
-    private void AddPage()
+    private void AddJsonPage()
     {
         Pages.Add(new PageView
         {
+            Icon = "json_file",
             Page = new JsonView(),
             Title = $"New Page [{Pages.Count + 1}]"
         });
-        var left = Pages.Count * 136;
-        MarginAddButton = new Thickness(left, 0, 0, 0);
+    }
+    
+    [RelayCommand]
+    private void AddTextPage()
+    {
+        Pages.Add(new PageView
+        {
+            Icon = "text_file",
+            Page = new TextView(),
+            Title = $"New Page [{Pages.Count + 1}]"
+        });
     }
 }

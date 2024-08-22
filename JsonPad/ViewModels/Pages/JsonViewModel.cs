@@ -28,9 +28,8 @@ public partial class JsonViewModel : ViewModelBase
     [ObservableProperty] 
     private Node _selectNode = new Node();
 
-    
-    [ObservableProperty]
-    private Dictionary<string,string> _jsonData = [];
+
+    [ObservableProperty] private Dictionary<string, string> _jsonData = [];
 
     public JsonViewModel()
     {
@@ -79,7 +78,6 @@ public partial class JsonViewModel : ViewModelBase
             { "Name", value.Name },
             { "Path", value.Path },
         };
-
     }
 
     
@@ -88,7 +86,6 @@ public partial class JsonViewModel : ViewModelBase
     {
         try
         {
-
             if (newValue.Equals(oldValue)) return;
             WarningText = "";
             InfoText = $"Length:{newValue.Length}";

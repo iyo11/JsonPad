@@ -26,12 +26,12 @@
                             HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                             VerticalAlignment="{TemplateBinding VerticalAlignment}">
                         <DockPanel>
-                            <ScrollViewer DockPanel.Dock="{TemplateBinding TabStripPlacement}" 
+                            <ScrollViewer DockPanel.Dock="{TemplateBinding TabStripPlacement}"
                                           HorizontalAlignment="Stretch"
                                           HorizontalScrollBarVisibility="Auto">
                                 <ItemsPresenter Name="PartItemsPresenter"
                                                 ItemsPanel="{TemplateBinding ItemsPanel}" />
-                            </ScrollViewer >
+                            </ScrollViewer>
                             <ContentPresenter Name="PartSelectedContentHost"
                                               Margin="{TemplateBinding Padding}"
                                               HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -44,26 +44,55 @@
             </Setter>
             <Setter Property="ItemsPanel">
                 <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal"/>
+                    <StackPanel Orientation="Horizontal" />
                 </ItemsPanelTemplate>
             </Setter>
         </ControlTheme>
     </UserControl.Resources>
 
-    <Grid>
+    <Grid RowDefinitions="25 *">
+        <Border
+            BorderBrush="#dadada"
+            BorderThickness="0 0 0 1">
+            <StackPanel
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                
+                <Button
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Command="{Binding AddJsonPageCommand}">
+                    <Svg Css="path {fill:#66CCFF;}" Path="/Resources/Svgs/json_file.svg" />
+                </Button>
+                <Button
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Command="{Binding AddTextPageCommand}">
+                    <Svg Css="path {fill:#66CCFF;}" Path="/Resources/Svgs/text_file.svg" />
+                </Button>
+            </StackPanel>
+        </Border>
+
+
         <TabControl
+            Grid.Row="1"
             x:Name="Tabs"
             Theme="{StaticResource ScrollTabControl}"
             ItemsSource="{Binding Pages}"
             SelectedItem="{Binding CurrentPage}">
             <TabControl.ItemTemplate>
                 <DataTemplate>
-                    <Border Width="120">
-                        <StackPanel 
+                    <Border Width="140">
+                        <StackPanel
                             Height="20"
                             VerticalAlignment="Center"
                             Orientation="Horizontal">
-                            <TextBlock      
+                            <Svg 
+                                Margin="2 0 8 0"
+                                Height="15" Width="15"
+                                Css="path {fill:#d82a1e;}" 
+                                Path="{Binding Icon,StringFormat='/Resources/Svgs/{0}.svg'}" />
+                            <TextBlock
                                 FontSize="13"
                                 Width="90"
                                 TextTrimming="CharacterEllipsis"
@@ -72,7 +101,7 @@
                             <Button
                                 Background="Transparent"
                                 BorderThickness="0"
-                                Margin=" 10 0 0 0"
+                                Margin=" 5 0 5 0"
                                 Command="{Binding $parent[UserControl].((viewModels:MainViewModel)DataContext).ClosePageCommand}"
                                 CommandParameter="{Binding .}">
                                 <Svg Css="path {fill:#FF6666;}" Path="/Resources/Svgs/close.svg" />
@@ -87,17 +116,5 @@
                 </DataTemplate>
             </TabControl.ContentTemplate>
         </TabControl>
-        <Button 
-            Width="36"
-            Background="Transparent"
-            BorderThickness="0"
-            Height="36"
-            FontWeight="Light"
-            Command="{Binding AddPageCommand}"
-            VerticalAlignment="Top"
-            HorizontalAlignment="Left"
-            Margin="{Binding MarginAddButton}">
-            <Svg Css="path {fill:#2976be;}" Path="/Resources/Svgs/plus.svg" Width="15" Height="15"/>
-        </Button>
     </Grid>
 </UserControl>

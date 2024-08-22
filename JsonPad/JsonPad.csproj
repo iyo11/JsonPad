@@ -17,17 +17,26 @@
         <AvaloniaResource Include="Resources\Svgs\font_size_down.svg" />
         <None Remove="Resources\Svgs\font_size_up.svg" />
         <AvaloniaResource Include="Resources\Svgs\font_size_up.svg" />
+        <None Remove="Resources\Svgs\chart.svg" />
+        <AvaloniaResource Include="Resources\Svgs\chart.svg" />
+        <None Remove="Resources\Svgs\json_file.svg" />
+        <AvaloniaResource Include="Resources\Svgs\json_file.svg" />
+        <None Remove="Resources\Svgs\list.svg" />
+        <AvaloniaResource Include="Resources\Svgs\list.svg" />
+        <None Remove="Resources\Svgs\text_file.svg" />
+        <AvaloniaResource Include="Resources\Svgs\text_file.svg" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Avalonia" Version="11.1.1" />
+        <PackageReference Include="Avalonia" Version="11.1.2" />
+        <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.1.1" />
         <PackageReference Include="Avalonia.Svg.Skia" Version="11.1.0" />
-        <PackageReference Include="Avalonia.Themes.Fluent" Version="$(AvaloniaVersion)"/>
-        <PackageReference Include="Avalonia.Fonts.Inter" Version="$(AvaloniaVersion)"/>
+        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.1.1" />
+        <PackageReference Include="Avalonia.Fonts.Inter" Version="11.1.1" />
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0"/>
 
         <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-        <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="$(AvaloniaVersion)"/>
+        <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.1.1" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
         <PackageReference Include="Semi.Avalonia" Version="11.1.0.2"/>
     </ItemGroup>
